@@ -6,6 +6,7 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
+import javax.jms.Message;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
@@ -37,13 +38,18 @@ public class RequestReply_JMS2X {
                  nao estivesse sendo definido a nivel do producer */
             requestMessage.setJMSReplyTo(replyQueue);
 
+            requestMessage.setStringProperty("myPropertie", "myPropValue");
+
             requestProducer.send(requestQueue, requestMessage);
 
             System.out.println("ID: "+requestMessage.getJMSMessageID());
 
             JMSConsumer requestConsumer = jmsContext.createConsumer(requestQueue);
 
-            System.out.println(requestConsumer.receiveBody(String.class));
+            Message receivedMsg = requestConsumer.receive();
+
+            System.out.println(receivedMsg.getBody(String.class));
+            System.out.println("my custom propertie: "+ receivedMsg.getStringProperty("myPropertie"));
 
             //-----------------------------------------------------------//
             JMSProducer replyProducer = jmsContext.createProducer();
