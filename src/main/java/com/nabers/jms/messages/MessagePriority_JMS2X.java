@@ -1,4 +1,4 @@
-package com.nabers.jms.basics;
+package com.nabers.jms.messages;
 
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 
