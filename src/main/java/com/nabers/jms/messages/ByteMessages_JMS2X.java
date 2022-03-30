@@ -7,13 +7,11 @@ import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
-import javax.jms.Message;
 import javax.jms.Queue;
-import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class MessageTypes_JMS2X {
+public class ByteMessages_JMS2X {
     public static void main(String[] args) throws NamingException, JMSException {
 
         //Cria contexto inicial baseado na propriedade "java.naming.factory.initial" da config. "jndi.properties".
