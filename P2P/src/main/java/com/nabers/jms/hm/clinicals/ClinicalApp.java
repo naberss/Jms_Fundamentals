@@ -12,6 +12,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.util.Scanner;
 
 public class ClinicalApp {
 
@@ -22,7 +23,7 @@ public class ClinicalApp {
         Queue replyQueue = (Queue) initialContext.lookup("queue/replyQueue");
 
         try (ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
-             JMSContext jmsContext = cf.createContext()){
+             JMSContext jmsContext = cf.createContext()) {
 
             JMSProducer jmsProducer = jmsContext.createProducer();
 
@@ -35,13 +36,14 @@ public class ClinicalApp {
 
             objectMessage.setObject(patient);
 
-            jmsProducer.send(requestQueue,objectMessage);
+            jmsProducer.send(requestQueue, objectMessage);
 
             //--------------------------------------------//t
 
             MapMessage replyMessage = (MapMessage) jmsContext.createConsumer(replyQueue).receive(30000);
-            System.out.println("response: "+replyMessage.getBoolean("tested"));
+            System.out.println("response: " + replyMessage.getBoolean("tested"));
         }
 
     }
+
 }
